@@ -1013,7 +1013,9 @@
       </div>
 
       <!-- Form -->
-      <div class="reveal bg-navy-900/60 border border-navy-600/40 rounded p-6 sm:p-8 lg:p-10 backdrop-blur-sm">
+      <div class="reveal relative bg-navy-900/60 border border-navy-600/40 rounded p-6 sm:p-8 lg:p-10 backdrop-blur-sm overflow-hidden">
+        <!-- Top accent gradient -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand to-transparent"></div>
         <form id="applicationForm" novalidate>
           <div class="grid sm:grid-cols-2 gap-5">
 
@@ -1111,11 +1113,25 @@
           </div>
 
           <!-- Submit -->
-          <div class="mt-8">
+          <div class="mt-8 flex flex-col items-center">
             <button type="submit" id="submitBtn"
-              class="btn-primary w-full sm:w-auto text-lg sm:text-xl px-10 py-4 sm:py-5">
+              class="btn-primary w-full sm:w-auto text-lg sm:text-xl px-10 py-4 sm:py-5 group">
               <span id="submitText">SUBMIT APPLICATION</span>
+              <svg class="w-5 h-5 ml-2 inline -mr-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             </button>
+            <p class="text-gray-400 text-xs sm:text-sm mt-3 text-center tracking-wide">
+              <svg class="w-4 h-4 inline -mt-0.5 mr-1 text-brand-light" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              No obligation · Response within 24 hours
+            </p>
+          </div>
+
+          <!-- Error -->
+          <div id="errorMessage" class="hidden mt-6">
+            <div class="bg-red-500/10 border border-red-500/30 rounded p-5 text-center">
+              <svg class="w-11 h-11 text-red-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <h3 class="font-heading text-xl font-bold text-red-400 tracking-wider">SUBMISSION FAILED</h3>
+              <p class="text-gray-300 mt-1.5 text-sm sm:text-base">Something went wrong. Please call us at <a href="tel:+19169903670" class="text-brand-light font-semibold underline">+1 (916) 990-3670</a></p>
+            </div>
           </div>
 
           <!-- Success -->
@@ -1480,17 +1496,23 @@
             access_key: 'a88f4164-a51f-49b8-96e1-d741aac119e7',
             subject: 'New Application — ' + formData.fullName,
             from_name: formData.fullName,
-            to: 'jodtados@gmail.com',
-            message: 'NEW DRIVER APPLICATION\n\nName: ' + formData.fullName + '\nPhone: ' + formData.phone + '\nEmail: ' + formData.email + '\nCDL Class: ' + formData.cdlClass + '\nOTR Experience: ' + formData.otrYears + '\nReefer Experience: ' + formData.reeferExp + '\nRegion: ' + formData.region + '\n\nSubmitted: ' + new Date().toLocaleString()
+            reply_to: formData.email,
+            to: 'contact@mikesdelivery.org',
+            message:
+              'Name: ' + formData.fullName + '\n' +
+              'Email: ' + formData.email + '\n' +
+              'Phone: ' + formData.phone + '\n' +
+              'CDL Class: ' + formData.cdlClass + '\n' +
+              'OTR Experience: ' + formData.otrYears + ' years\n' +
+              'Reefer Experience: ' + (formData.reeferExp || 'Not specified') + '\n' +
+              'Region: ' + (formData.region || 'Not specified') + '\n' +
+              'Submitted: ' + new Date().toLocaleString()
           })
         });
         const result = await response.json();
         if (!result.success) throw new Error(result.message || 'Submission failed');
-      } catch (err) {
-        console.warn('Submission error:', err);
-      }
 
-      // Show success
+      // ===== SUCCESS =====
       document.getElementById('successMessage').classList.remove('hidden');
       form.reset();
       document.getElementById('reeferExp').value = '';
@@ -1506,6 +1528,13 @@
         dd.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('selected'));
         dd.querySelector('input[type="hidden"]').value = '';
       });
+
+      } catch (err) {
+        console.warn('Submission error:', err);
+        // ===== ERROR =====
+        document.getElementById('errorMessage').classList.remove('hidden');
+        document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
 
       submitBtn.disabled = false;
       submitText.textContent = 'SUBMIT APPLICATION';
