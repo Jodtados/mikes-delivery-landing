@@ -10,7 +10,9 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="logo.png">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -109,6 +111,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       opacity: 0.7;
       filter: brightness(1) saturate(1.3) contrast(1.05);
     }
@@ -487,9 +490,109 @@
       opacity: 0.3;
     }
 
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 60;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(15, 31, 58, 0.5);
+      border: 1px solid rgba(30, 79, 214, 0.2);
+      backdrop-filter: blur(8px);
+      transition: background 0.3s;
+    }
+    .hamburger:hover { background: rgba(15, 31, 58, 0.8); }
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      transition: all 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 200px;
+      width: 55vw;
+      height: 100%;
+      height: 100dvh;
+      background: rgba(6, 14, 26, 0.5);
+      backdrop-filter: blur(24px);
+      z-index: 55;
+      display: flex;
+      flex-direction: column;
+      padding: 80px 32px 32px;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+      border-left: 1px solid rgba(30, 79, 214, 0.15);
+    }
+    .mobile-menu.active { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.85);
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: #3b6ff0; }
+    .mobile-menu .menu-phone { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1rem; letter-spacing: 1px; }
+    .mobile-menu .close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 8px;
+      background: rgba(30, 79, 214, 0.15);
+      border: 1px solid rgba(30, 79, 214, 0.25);
+      transition: background 0.3s;
+    }
+    .mobile-menu .close-btn:hover { background: rgba(30, 79, 214, 0.3); }
+
+    .mobile-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 56;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .mobile-backdrop.active { opacity: 1; pointer-events: all; }
+
+    .mobile-menu .close-btn svg {
+      width: 20px;
+      height: 20px;
+      color: #e2e8f0;
+    }
+
+    @media (max-width: 639px) {
+      .hamburger { display: flex; }
+      .desktop-nav { display: none !important; }
+    }
+
     /* ===== RESPONSIVE TWEAKS ===== */
     @media (max-width: 640px) {
-      .ribbon { font-size: 0.7rem; padding: 7px 20px; letter-spacing: 1.5px; }
+      .hero-section { align-items: flex-start; }
+      .ribbon { font-size: 0.85rem; padding: 8px 24px; letter-spacing: 1.5px; }
       .logo-img { height: 36px; }
       .hero-content { padding-bottom: 1rem; }
       .content-card { padding: 1.25rem !important; }
@@ -529,21 +632,42 @@
           <img src="logo.png" alt="Mike's Delivery Logo" class="logo-img">
         </a>
 
-        <!-- Nav -->
-        <nav class="flex items-center gap-4 sm:gap-6 lg:gap-10">
+        <!-- Nav (desktop) -->
+        <nav class="desktop-nav flex items-center gap-4 sm:gap-6 lg:gap-10">
           <a href="#requirements" class="nav-link text-gray-300 hover:text-white transition text-xs sm:text-sm">Requirements</a>
           <a href="#benefits" class="nav-link text-gray-300 hover:text-white transition text-xs sm:text-sm">What We Offer</a>
           <a href="#apply" class="nav-link text-gray-300 hover:text-white transition text-xs sm:text-sm">Apply</a>
         </nav>
 
-        <!-- Phone -->
+        <!-- Phone (desktop) -->
         <a href="tel:+19169903670" class="hidden sm:flex items-center gap-2 phone-pulse rounded px-3 sm:px-5 py-2 border border-brand/30 hover:border-brand/60 transition group">
           <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-light group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.31.03.66-.25 1.02l-2.19 2.2z"/></svg>
           <span class="font-heading text-sm sm:text-lg font-semibold text-brand-light tracking-wider">+1 (916) 990-3670</span>
         </a>
+
+        <!-- Hamburger (mobile) -->
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Sidebar Backdrop -->
+  <div class="mobile-backdrop" id="mobileBackdrop"></div>
+
+  <!-- Mobile Sidebar Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="close-btn" id="mobileMenuClose">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </div>
+    <a href="#requirements">Requirements</a>
+    <a href="#benefits">What We Offer</a>
+    <a href="#apply">Apply</a>
+    <a href="tel:+19169903670" class="menu-phone" style="color: #3b6ff0;">+1 (916) 990-3670</a>
+  </div>
 
   <!-- ============================================ -->
   <!-- HERO SECTION -->
@@ -576,7 +700,7 @@
       <div class="hero-overlay"></div>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 sm:pt-28">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-[62px] sm:pt-28">
       <div class="hero-content">
         <!-- Ribbon -->
         <div class="reveal">
@@ -617,9 +741,6 @@
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce hidden sm:block">
-      <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-    </div>
   </section>
 
   <!-- ============================================ -->
@@ -897,7 +1018,7 @@
               <label for="fullName" class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">Full Name *</label>
               <input type="text" id="fullName" name="fullName" required placeholder="John Smith"
                 class="form-input w-full px-4 py-3.5 rounded text-base sm:text-lg">
-              <p class="text-red-400 text-sm mt-1 hidden" id="fullNameError">Please enter your full name</p>
+              <p class="text-orange-400 text-xs mt-1 hidden" id="fullNameError">This field is required</p>
             </div>
 
             <!-- Phone -->
@@ -908,8 +1029,7 @@
                 <input type="tel" id="phone" name="phone" required placeholder="(XXX) XXX-XXXX" maxlength="14"
                   class="form-input w-full pl-10 pr-4 py-3.5 rounded text-base sm:text-lg">
               </div>
-              <p class="text-gray-500 text-xs mt-1">US number format: +1 (XXX) XXX-XXXX</p>
-              <p class="text-red-400 text-sm mt-1 hidden" id="phoneError">Please enter a valid US phone number</p>
+              <p class="text-orange-400 text-xs mt-1 hidden" id="phoneError">US number format: +1 (XXX) XXX-XXXX</p>
             </div>
 
             <!-- Email -->
@@ -917,8 +1037,7 @@
               <label for="email" class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">Email *</label>
               <input type="email" id="email" name="email" required placeholder="you@example.com"
                 class="form-input w-full px-4 py-3.5 rounded text-base sm:text-lg">
-              <p class="text-gray-500 text-xs mt-1">Enter a valid email address (e.g. name@domain.com)</p>
-              <p class="text-red-400 text-sm mt-1 hidden" id="emailError">Please enter a valid email address</p>
+              <p class="text-orange-400 text-xs mt-1 hidden" id="emailError">Enter a valid email address (e.g. name@domain.com)</p>
             </div>
 
             <!-- CDL Class -->
@@ -1040,10 +1159,7 @@
   <!-- FOOTER -->
   <!-- ============================================ -->
   <footer class="bg-navy-950 border-t border-navy-600/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 flex items-center justify-between">
-      <a href="#" class="inline-flex group">
-        <img src="logo.png" alt="Mike's Delivery" class="logo-img" style="height: 40px;">
-      </a>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 text-center">
       <p class="font-body text-gray-600 text-xs sm:text-sm">
         &copy; <span id="currentYear"></span> Mike's Delivery. All Rights Reserved.
       </p>
@@ -1057,7 +1173,21 @@
     // ===== CURRENT YEAR =====
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // ===== MOBILE MENU (removed — nav always visible) =====
+    // ===== HAMBURGER MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+    function openMenu() { hamburger.classList.add('active'); mobileMenu.classList.add('active'); mobileBackdrop.classList.add('active'); }
+    function closeMenu() { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); mobileBackdrop.classList.remove('active'); }
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.contains('active') ? closeMenu() : openMenu();
+    });
+    mobileMenuClose.addEventListener('click', closeMenu);
+    mobileBackdrop.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
 
     // ===== NAVBAR SCROLL EFFECT =====
     const navbar = document.querySelector('.navbar');
@@ -1294,6 +1424,24 @@
       return digits.length === 10;
     }
     function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+
+    // ===== REAL-TIME VALIDATION ON BLUR =====
+    document.getElementById('fullName').addEventListener('blur', function() {
+      const val = this.value.trim();
+      if (!val) { showError('fullName'); document.getElementById('fullNameError').textContent = 'This field is required'; }
+      else if (val.length < 2) { showError('fullName'); document.getElementById('fullNameError').textContent = 'This field is too short'; }
+      else clearError('fullName');
+    });
+    document.getElementById('phone').addEventListener('blur', function() {
+      const val = this.value.trim();
+      if (val && !isValidPhone(val)) showError('phone');
+      else clearError('phone');
+    });
+    document.getElementById('email').addEventListener('blur', function() {
+      const val = this.value.trim();
+      if (val && !isValidEmail(val)) showError('email');
+      else clearError('email');
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
