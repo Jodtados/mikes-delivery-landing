@@ -64,8 +64,7 @@
     .nav-link {
       position: relative;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 0.8rem;
+      letter-spacing: 1px;
       font-weight: 500;
     }
     .nav-link::after {
@@ -344,28 +343,7 @@
     .star-twinkle:nth-child(2) { animation-delay: 0.5s; }
     .star-twinkle:nth-child(3) { animation-delay: 1s; }
 
-    /* ===== MOBILE MENU ===== */
-    .mobile-menu {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    }
-    .mobile-menu.open { max-height: 400px; opacity: 1; }
-    .mobile-menu .mobile-nav-link {
-      transform: translateX(-20px);
-      opacity: 0;
-      transition: transform 0.3s ease, opacity 0.3s ease, background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
-    }
-    .mobile-menu.open .mobile-nav-link {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    .mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.05s; }
-    .mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.1s; }
-    .mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.15s; }
-    .mobile-menu.open > div > div:last-child { opacity: 0; transition: opacity 0.3s ease 0.2s; }
-    .mobile-menu.open > div > div:last-child { opacity: 1; }
+    /* ===== MOBILE MENU (removed — nav always visible) ===== */
 
     /* ===== CUSTOM DROPDOWN ===== */
     .custom-dropdown { position: relative; }
@@ -522,9 +500,10 @@
     }
     @media (max-width: 374px) {
       .logo-img { height: 30px; }
-      h1.text-5xl { font-size: 2.25rem; }
-      h2.text-xl { font-size: 1rem; }
+      h1.text-6xl { font-size: 2.5rem; }
+      h2.text-2xl { font-size: 1.1rem; }
       .ribbon { font-size: 0.6rem; padding: 6px 16px; letter-spacing: 1px; }
+      .nav-link { font-size: 0.6rem !important; letter-spacing: 0 !important; }
     }
     @media (min-width: 641px) and (max-width: 1023px) {
       .logo-img { height: 44px; }
@@ -547,40 +526,18 @@
           <img src="logo.png" alt="Mike's Delivery Logo" class="logo-img">
         </a>
 
-        <!-- Desktop Nav -->
-        <nav class="hidden lg:flex items-center gap-10">
-          <a href="#requirements" class="nav-link text-gray-300 hover:text-white transition">Requirements</a>
-          <a href="#benefits" class="nav-link text-gray-300 hover:text-white transition">What We Offer</a>
-          <a href="#apply" class="nav-link text-gray-300 hover:text-white transition">Apply</a>
+        <!-- Nav -->
+        <nav class="flex items-center gap-4 sm:gap-6 lg:gap-10">
+          <a href="#requirements" class="nav-link text-gray-300 hover:text-white transition text-xs sm:text-sm">Requirements</a>
+          <a href="#benefits" class="nav-link text-gray-300 hover:text-white transition text-xs sm:text-sm">What We Offer</a>
+          <a href="#apply" class="nav-link text-gray-300 hover:text-white transition text-xs sm:text-sm">Apply</a>
         </nav>
 
-        <!-- Phone (Desktop) -->
-        <a href="tel:+19169903670" class="hidden lg:flex items-center gap-2 phone-pulse rounded px-5 py-2 border border-brand/30 hover:border-brand/60 transition group">
-          <svg class="w-5 h-5 text-brand-light group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.31.03.66-.25 1.02l-2.19 2.2z"/></svg>
-          <span class="font-heading text-lg font-semibold text-brand-light tracking-wider">(916) 990-3670</span>
+        <!-- Phone -->
+        <a href="tel:+19169903670" class="hidden sm:flex items-center gap-2 phone-pulse rounded px-3 sm:px-5 py-2 border border-brand/30 hover:border-brand/60 transition group">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-light group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.31.03.66-.25 1.02l-2.19 2.2z"/></svg>
+          <span class="font-heading text-sm sm:text-lg font-semibold text-brand-light tracking-wider">(916) 990-3670</span>
         </a>
-
-        <!-- Mobile Toggle -->
-        <button id="mobileMenuBtn" class="lg:hidden p-2 text-gray-300 hover:text-white transition" aria-label="Toggle menu">
-          <svg id="menuIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobileMenu" class="mobile-menu lg:hidden">
-        <div class="pb-6 space-y-1 border-t border-navy-600/50 pt-4">
-          <a href="#requirements" class="block px-4 py-3 font-heading text-lg font-medium text-gray-300 hover:text-white hover:bg-navy-700/50 rounded transition mobile-nav-link tracking-wider">REQUIREMENTS</a>
-          <a href="#benefits" class="block px-4 py-3 font-heading text-lg font-medium text-gray-300 hover:text-white hover:bg-navy-700/50 rounded transition mobile-nav-link tracking-wider">WHAT WE OFFER</a>
-          <a href="#apply" class="block px-4 py-3 font-heading text-lg font-medium text-gray-300 hover:text-white hover:bg-navy-700/50 rounded transition mobile-nav-link tracking-wider">APPLY</a>
-          <div class="pt-3 px-4">
-            <a href="tel:+19169903670" class="flex items-center gap-2 font-heading text-brand-light tracking-wider">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.31.03.66-.25 1.02l-2.19 2.2z"/></svg>
-              (916) 990-3670
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   </header>
@@ -624,12 +581,12 @@
         </div>
 
         <!-- Headline -->
-        <h1 class="reveal delay-1 font-heading font-bold text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white leading-[0.9] mt-6 sm:mt-8 tracking-tight">
+        <h1 class="reveal delay-1 font-heading font-bold text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-white leading-[0.9] mt-6 sm:mt-8 tracking-tight">
           NOW HIRING
         </h1>
 
         <!-- Subheadline -->
-        <h2 class="reveal delay-2 font-heading font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-2 sm:mt-3 tracking-widest" style="color: #3b6ff0;">
+        <h2 class="reveal delay-2 font-heading font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-3 tracking-widest" style="color: #3b6ff0;">
           CDL-A REEFER DRIVERS
         </h2>
 
@@ -784,7 +741,7 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
       <!-- Truck GIF -->
       <div class="reveal-left w-full lg:w-1/2">
-        <img src="https://images.pexels.com/photos/27099095/pexels-photo-27099095.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="American semi truck on highway" class="w-full max-w-lg mx-auto rounded shadow-2xl object-cover hover:scale-[1.02] transition-transform duration-500" style="border: 2px solid rgba(30,79,214,0.2);">
+        <img src="https://images.pexels.com/photos/15857274/pexels-photo-15857274.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="American semi truck on highway" class="w-full max-w-lg mx-auto rounded shadow-2xl object-cover hover:scale-[1.02] transition-transform duration-500" style="border: 2px solid rgba(30,79,214,0.2);">
       </div>
       <!-- Text -->
       <div class="reveal-right w-full lg:w-1/2">
@@ -1077,32 +1034,35 @@
   <footer class="bg-navy-950 border-t border-navy-600/30">
     <!-- Footer Top -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      <div class="grid md:grid-cols-3 gap-10 items-center">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 items-center">
         <!-- Logo & Tagline -->
-        <div class="text-center md:text-left">
+        <div class="text-center lg:text-left">
           <a href="#" class="inline-flex group">
             <img src="logo.png" alt="Mike's Delivery" class="logo-img" style="height: 56px;">
           </a>
-          <p class="text-brand-light font-medium text-lg mt-3 italic tracking-wide">
-            "Good People. Great Miles. Strong Future."
+          <p class="text-brand-light font-heading font-semibold text-lg mt-3 tracking-wider uppercase">
+            Hire Safe. Run Strong.
           </p>
         </div>
-        <!-- Contact -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-          <a href="tel:+19169903670" class="font-body text-gray-400 hover:text-white transition text-center">
+        <!-- Mobile / Dispatch -->
+        <div class="text-center">
+          <a href="tel:+19169903670" class="font-body text-gray-400 hover:text-white transition">
             <span class="block text-xs uppercase tracking-wider text-gray-500">Mobile / Dispatch</span>
-            (916) 990-3670
+            <span class="text-white font-medium">(916) 990-3670</span>
           </a>
-          <a href="tel:+19163142434" class="font-body text-gray-400 hover:text-white transition text-center">
+        </div>
+        <!-- Office -->
+        <div class="text-center">
+          <a href="tel:+19163142434" class="font-body text-gray-400 hover:text-white transition">
             <span class="block text-xs uppercase tracking-wider text-gray-500">Office</span>
-            (916) 314-2434
+            <span class="text-white font-medium">(916) 314-2434</span>
           </a>
         </div>
         <!-- Email -->
-        <div class="text-center md:text-right">
+        <div class="text-center">
           <a href="mailto:contact@mikesdelivery.org" class="font-body text-gray-400 hover:text-white transition">
             <span class="block text-xs uppercase tracking-wider text-gray-500">Email</span>
-            contact@mikesdelivery.org
+            <span class="text-white font-medium">contact@mikesdelivery.org</span>
           </a>
         </div>
       </div>
@@ -1124,27 +1084,7 @@
     // ===== CURRENT YEAR =====
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // ===== MOBILE MENU =====
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const menuIcon = document.getElementById('menuIcon');
-    let menuOpen = false;
-
-    mobileMenuBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      mobileMenu.classList.toggle('open', menuOpen);
-      menuIcon.setAttribute('d', menuOpen
-        ? 'M6 18L18 6M6 6l12 12'
-        : 'M4 6h16M4 12h16M4 18h16');
-    });
-
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menuOpen = false;
-        mobileMenu.classList.remove('open');
-        menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-      });
-    });
+    // ===== MOBILE MENU (removed — nav always visible) =====
 
     // ===== NAVBAR SCROLL EFFECT =====
     const navbar = document.querySelector('.navbar');
@@ -1361,6 +1301,13 @@
       el.addEventListener('change', () => clearError(id));
     });
     // Custom dropdowns clear errors via their option click handlers
+
+    // ===== PHONE INPUT MASK =====
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', () => {
+      let val = phoneInput.value.replace(/[^\d+\-() ]/g, '');
+      phoneInput.value = val;
+    });
 
     function isValidPhone(p) {
       return /^\+?\d{7,15}$/.test(p.replace(/[\s\-\(\)\.]/g, '')) && p.replace(/[\s\-\(\)\.]/g, '').length >= 10;
