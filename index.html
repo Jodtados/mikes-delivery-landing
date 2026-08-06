@@ -348,14 +348,125 @@
     .mobile-menu {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
-    .mobile-menu.open { max-height: 400px; }
+    .mobile-menu.open { max-height: 400px; opacity: 1; }
+    .mobile-menu .mobile-nav-link {
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease, background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-menu.open .mobile-nav-link {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.05s; }
+    .mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.1s; }
+    .mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.15s; }
+    .mobile-menu.open > div > div:last-child { opacity: 0; transition: opacity 0.3s ease 0.2s; }
+    .mobile-menu.open > div > div:last-child { opacity: 1; }
 
-    /* ===== TRUCK GIF STYLING ===== */
-    .truck-gif {
-      filter: brightness(0.7) saturate(1.3) contrast(1.1);
-      border-radius: 2px;
+    /* ===== CUSTOM DROPDOWN ===== */
+    .custom-dropdown { position: relative; }
+    .dropdown-trigger {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .dropdown-trigger .dropdown-value { pointer-events: none; }
+    .dropdown-panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background: rgba(15, 31, 58, 0.97);
+      border: 1px solid rgba(30, 79, 214, 0.3);
+      border-radius: 8px;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    .dropdown-panel::-webkit-scrollbar { width: 4px; }
+    .dropdown-panel::-webkit-scrollbar-track { background: transparent; }
+    .dropdown-panel::-webkit-scrollbar-thumb { background: #1e4fd6; border-radius: 2px; }
+    .custom-dropdown.open .dropdown-panel {
+      max-height: 250px;
+      opacity: 1;
+      overflow-y: auto;
+    }
+    .custom-dropdown.open .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .dropdown-arrow {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+    .dropdown-option {
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #cbd5e1;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(30, 79, 214, 0.08);
+    }
+    .dropdown-option:last-child { border-bottom: none; }
+    .dropdown-option:hover {
+      background: rgba(30, 79, 214, 0.15);
+      color: white;
+      padding-left: 22px;
+    }
+    .dropdown-option.selected {
+      background: rgba(30, 79, 214, 0.2);
+      color: #3b6ff0;
+      font-weight: 500;
+    }
+
+    /* ===== REGION AUTOCOMPLETE ===== */
+    .autocomplete-wrapper { position: relative; }
+    .autocomplete-list {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background: rgba(15, 31, 58, 0.97);
+      border: 1px solid rgba(30, 79, 214, 0.3);
+      border-radius: 8px;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    .autocomplete-list.visible {
+      max-height: 220px;
+      opacity: 1;
+      overflow-y: auto;
+    }
+    .autocomplete-list::-webkit-scrollbar { width: 4px; }
+    .autocomplete-list::-webkit-scrollbar-track { background: transparent; }
+    .autocomplete-list::-webkit-scrollbar-thumb { background: #1e4fd6; border-radius: 2px; }
+    .autocomplete-item {
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(30, 79, 214, 0.08);
+    }
+    .autocomplete-item:last-child { border-bottom: none; }
+    .autocomplete-item:hover,
+    .autocomplete-item.active {
+      background: rgba(30, 79, 214, 0.15);
+      color: white;
+      padding-left: 22px;
     }
 
     /* ===== SUCCESS ANIMATION ===== */
@@ -397,8 +508,23 @@
 
     /* ===== RESPONSIVE TWEAKS ===== */
     @media (max-width: 640px) {
-      .ribbon { font-size: 0.75rem; padding: 8px 24px; letter-spacing: 2px; }
-      .logo-img { height: 40px; }
+      .ribbon { font-size: 0.7rem; padding: 7px 20px; letter-spacing: 1.5px; }
+      .logo-img { height: 36px; }
+      .hero-content { padding-bottom: 1rem; }
+      .content-card { padding: 1.25rem !important; }
+      .stat-card { padding: 1rem !important; }
+      .stat-card svg.w-7 { width: 1.25rem; height: 1.25rem; }
+      .stat-card .w-14 { width: 2.5rem; height: 2.5rem; }
+      .stat-card .font-heading.text-4xl { font-size: 1.75rem; }
+      .stat-card .font-heading.text-3xl { font-size: 1.5rem; }
+      .stat-card .font-heading.text-2xl { font-size: 1.25rem; }
+      .contact-card { padding: 1rem !important; }
+    }
+    @media (max-width: 374px) {
+      .logo-img { height: 30px; }
+      h1.text-5xl { font-size: 2.25rem; }
+      h2.text-xl { font-size: 1rem; }
+      .ribbon { font-size: 0.6rem; padding: 6px 16px; letter-spacing: 1px; }
     }
     @media (min-width: 641px) and (max-width: 1023px) {
       .logo-img { height: 44px; }
@@ -417,9 +543,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 sm:h-20">
         <!-- Logo -->
-        <a href="#" class="flex items-center gap-3 flex-shrink-0 group">
+        <a href="#" class="flex-shrink-0 group">
           <img src="logo.png" alt="Mike's Delivery Logo" class="logo-img">
-          <span class="font-heading text-xl sm:text-2xl font-bold text-white tracking-widest group-hover:text-brand-light transition-colors">MIKE'S DELIVERY</span>
         </a>
 
         <!-- Desktop Nav -->
@@ -499,24 +624,19 @@
         </div>
 
         <!-- Headline -->
-        <h1 class="reveal delay-1 font-heading font-bold text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] text-white leading-[0.9] mt-6 sm:mt-8 tracking-tight">
+        <h1 class="reveal delay-1 font-heading font-bold text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] text-white leading-[0.9] mt-6 sm:mt-8 tracking-tight">
           NOW HIRING
         </h1>
 
         <!-- Subheadline -->
-        <h2 class="reveal delay-2 font-heading font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-3 tracking-widest" style="color: #3b6ff0;">
+        <h2 class="reveal delay-2 font-heading font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-2 sm:mt-3 tracking-widest" style="color: #3b6ff0;">
           CDL-A REEFER DRIVERS
         </h2>
 
         <!-- Tagline -->
-        <p class="reveal delay-3 text-xl sm:text-2xl md:text-3xl text-gray-300 mt-4 sm:mt-6 font-light">
-          Profit From Every Mile!
+        <p class="reveal delay-3 text-xl sm:text-2xl md:text-3xl text-gray-300 mt-4 sm:mt-6 font-light tracking-wide">
+          Your Miles. Your Money. Your Future.
         </p>
-
-        <!-- Truck GIF (visible on mobile/tablet) -->
-        <div class="mt-8 lg:hidden reveal delay-4">
-          <img src="https://media.giphy.com/media/9PFtChMlHLO9UkF3Lg/giphy.gif" alt="Semi truck driving" class="truck-gif w-full max-w-md rounded opacity-60">
-        </div>
 
         <!-- CTA Buttons -->
         <div class="reveal delay-4 flex flex-col sm:flex-row gap-4 mt-8 sm:mt-10">
@@ -838,28 +958,38 @@
 
             <!-- CDL Class -->
             <div>
-              <label for="cdlClass" class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">CDL Class *</label>
-              <select id="cdlClass" name="cdlClass" required
-                class="form-input w-full px-4 py-3.5 rounded text-base sm:text-lg">
-                <option value="" disabled selected>Select CDL Class</option>
-                <option value="A">Class A</option>
-                <option value="B">Class B</option>
-                <option value="C">Class C</option>
-              </select>
+              <label class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">CDL Class *</label>
+              <div class="custom-dropdown" id="cdlDropdown">
+                <button type="button" class="dropdown-trigger form-input w-full px-4 py-3.5 rounded text-base sm:text-lg flex items-center justify-between">
+                  <span class="dropdown-value text-gray-500" data-placeholder="Select CDL Class">Select CDL Class</span>
+                  <svg class="dropdown-arrow w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="dropdown-panel">
+                  <div class="dropdown-option" data-value="A">Class A</div>
+                  <div class="dropdown-option" data-value="B">Class B</div>
+                  <div class="dropdown-option" data-value="C">Class C</div>
+                </div>
+                <input type="hidden" id="cdlClass" name="cdlClass" value="" required>
+              </div>
               <p class="text-red-400 text-sm mt-1 hidden" id="cdlClassError">Please select your CDL class</p>
             </div>
 
             <!-- OTR Years -->
             <div>
-              <label for="otrYears" class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">Years of OTR Experience *</label>
-              <select id="otrYears" name="otrYears" required
-                class="form-input w-full px-4 py-3.5 rounded text-base sm:text-lg">
-                <option value="" disabled selected>Select Years</option>
-                <option value="2">2 Years</option>
-                <option value="3">3 Years</option>
-                <option value="5">5+ Years</option>
-                <option value="10">10+ Years</option>
-              </select>
+              <label class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">Years of OTR Experience *</label>
+              <div class="custom-dropdown" id="otrDropdown">
+                <button type="button" class="dropdown-trigger form-input w-full px-4 py-3.5 rounded text-base sm:text-lg flex items-center justify-between">
+                  <span class="dropdown-value text-gray-500" data-placeholder="Select Years">Select Years</span>
+                  <svg class="dropdown-arrow w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="dropdown-panel">
+                  <div class="dropdown-option" data-value="2">2 Years</div>
+                  <div class="dropdown-option" data-value="3">3 Years</div>
+                  <div class="dropdown-option" data-value="5">5+ Years</div>
+                  <div class="dropdown-option" data-value="10">10+ Years</div>
+                </div>
+                <input type="hidden" id="otrYears" name="otrYears" value="" required>
+              </div>
               <p class="text-red-400 text-sm mt-1 hidden" id="otrYearsError">Please select your experience</p>
             </div>
 
@@ -882,8 +1012,12 @@
             <!-- Region -->
             <div class="sm:col-span-2">
               <label for="region" class="block font-heading text-sm font-semibold text-gray-300 uppercase tracking-widest mb-2">Preferred Region / Route</label>
-              <input type="text" id="region" name="region" placeholder="e.g., Midwest, Southeast, All 48..."
-                class="form-input w-full px-4 py-3.5 rounded text-base sm:text-lg">
+              <div class="autocomplete-wrapper">
+                <input type="text" id="region" name="region" placeholder="Start typing state, region..."
+                  autocomplete="off"
+                  class="form-input w-full px-4 py-3.5 rounded text-base sm:text-lg">
+                <div class="autocomplete-list" id="regionList"></div>
+              </div>
             </div>
 
           </div>
@@ -946,9 +1080,8 @@
       <div class="grid md:grid-cols-3 gap-10 items-center">
         <!-- Logo & Tagline -->
         <div class="text-center md:text-left">
-          <a href="#" class="inline-flex items-center gap-3 group">
+          <a href="#" class="inline-flex group">
             <img src="logo.png" alt="Mike's Delivery" class="logo-img" style="height: 56px;">
-            <span class="font-heading text-xl font-bold text-white tracking-widest group-hover:text-brand-light transition-colors">MIKE'S DELIVERY</span>
           </a>
           <p class="text-brand-light font-medium text-lg mt-3 italic tracking-wide">
             "Good People. Great Miles. Strong Future."
@@ -1107,27 +1240,127 @@
       }
     }
 
+    // ===== CUSTOM DROPDOWNS =====
+    document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+      const trigger = dropdown.querySelector('.dropdown-trigger');
+      const panel = dropdown.querySelector('.dropdown-panel');
+      const valueEl = dropdown.querySelector('.dropdown-value');
+      const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+      const options = dropdown.querySelectorAll('.dropdown-option');
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.custom-dropdown.open').forEach(d => {
+          if (d !== dropdown) d.classList.remove('open');
+        });
+        dropdown.classList.toggle('open');
+      });
+
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          options.forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+          valueEl.textContent = option.textContent;
+          valueEl.classList.remove('text-gray-500');
+          valueEl.classList.add('text-white');
+          hiddenInput.value = option.dataset.value;
+          dropdown.classList.remove('open');
+          const errId = hiddenInput.id + 'Error';
+          const errEl = document.getElementById(errId);
+          if (errEl) { errEl.classList.add('hidden'); trigger.classList.remove('border-red-400'); }
+        });
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-dropdown')) {
+        document.querySelectorAll('.custom-dropdown.open').forEach(d => d.classList.remove('open'));
+      }
+    });
+
+    // ===== REGION AUTOCOMPLETE =====
+    (function() {
+      const regions = [
+        'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia',
+        'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland',
+        'Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey',
+        'New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina',
+        'South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming',
+        'All 48 States','Midwest','Southeast','Northeast','Southwest','Northwest','West Coast','East Coast',
+        'Pacific Northwest','Deep South','Great Lakes','New England','Mid-Atlantic','Rocky Mountains','Gulf Coast',
+        'California - Local','Texas Triangle','I-95 Corridor','I-80 Corridor','Southeast Regional','Midwest Regional'
+      ];
+      const input = document.getElementById('region');
+      const list = document.getElementById('regionList');
+      let activeIdx = -1;
+
+      input.addEventListener('input', () => {
+        const val = input.value.trim().toLowerCase();
+        if (val.length < 1) { list.classList.remove('visible'); list.innerHTML = ''; return; }
+        const matches = regions.filter(r => r.toLowerCase().includes(val)).slice(0, 8);
+        if (!matches.length) { list.classList.remove('visible'); list.innerHTML = ''; return; }
+        list.innerHTML = matches.map(m => `<div class="autocomplete-item">${m}</div>`).join('');
+        list.classList.add('visible');
+        activeIdx = -1;
+        list.querySelectorAll('.autocomplete-item').forEach((item, i) => {
+          item.addEventListener('click', () => {
+            input.value = item.textContent;
+            list.classList.remove('visible');
+          });
+        });
+      });
+
+      input.addEventListener('keydown', (e) => {
+        const items = list.querySelectorAll('.autocomplete-item');
+        if (!items.length) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, items.length - 1); updateActive(items); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); updateActive(items); }
+        else if (e.key === 'Enter' && activeIdx >= 0) { e.preventDefault(); input.value = items[activeIdx].textContent; list.classList.remove('visible'); }
+        else if (e.key === 'Escape') { list.classList.remove('visible'); }
+      });
+
+      function updateActive(items) {
+        items.forEach((it, i) => it.classList.toggle('active', i === activeIdx));
+        if (items[activeIdx]) items[activeIdx].scrollIntoView({ block: 'nearest' });
+      }
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.autocomplete-wrapper')) list.classList.remove('visible');
+      });
+    })();
+
     // ===== FORM VALIDATION =====
     const form = document.getElementById('applicationForm');
 
     function showError(id) {
       const field = document.getElementById(id);
       const error = document.getElementById(id + 'Error');
-      field.classList.add('border-red-400');
+      if (field.tagName === 'INPUT' && field.type === 'hidden') {
+        const dropdown = field.closest('.custom-dropdown');
+        if (dropdown) dropdown.querySelector('.dropdown-trigger').classList.add('border-red-400');
+      } else {
+        field.classList.add('border-red-400');
+      }
       error.classList.remove('hidden');
     }
     function clearError(id) {
       const field = document.getElementById(id);
       const error = document.getElementById(id + 'Error');
-      field.classList.remove('border-red-400');
+      if (field.tagName === 'INPUT' && field.type === 'hidden') {
+        const dropdown = field.closest('.custom-dropdown');
+        if (dropdown) dropdown.querySelector('.dropdown-trigger').classList.remove('border-red-400');
+      } else {
+        field.classList.remove('border-red-400');
+      }
       error.classList.add('hidden');
     }
 
-    ['fullName', 'phone', 'email', 'cdlClass', 'otrYears'].forEach(id => {
+    ['fullName', 'phone', 'email'].forEach(id => {
       const el = document.getElementById(id);
       el.addEventListener('input', () => clearError(id));
       el.addEventListener('change', () => clearError(id));
     });
+    // Custom dropdowns clear errors via their option click handlers
 
     function isValidPhone(p) {
       return /^\+?\d{7,15}$/.test(p.replace(/[\s\-\(\)\.]/g, '')) && p.replace(/[\s\-\(\)\.]/g, '').length >= 10;
@@ -1179,6 +1412,16 @@
       document.getElementById('reeferExp').value = '';
       document.getElementById('reeferYes').className = 'px-6 py-2.5 rounded font-heading text-lg font-medium border-2 border-navy-600 text-gray-400 hover:border-brand/50 transition';
       document.getElementById('reeferNo').className = 'px-6 py-2.5 rounded font-heading text-lg font-medium border-2 border-navy-600 text-gray-400 hover:border-brand/50 transition';
+
+      // Reset custom dropdowns
+      document.querySelectorAll('.custom-dropdown').forEach(dd => {
+        dd.classList.remove('open');
+        const val = dd.querySelector('.dropdown-value');
+        val.textContent = val.dataset.placeholder || 'Select...';
+        val.className = 'dropdown-value text-gray-500';
+        dd.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('selected'));
+        dd.querySelector('input[type="hidden"]').value = '';
+      });
 
       submitBtn.disabled = false;
       submitText.textContent = 'SUBMIT APPLICATION';
