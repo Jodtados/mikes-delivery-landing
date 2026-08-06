@@ -199,6 +199,10 @@
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .stat-card::before {
       content: '';
@@ -531,7 +535,7 @@
       height: 100dvh;
       background: rgba(6, 14, 26, 0.5);
       backdrop-filter: blur(24px);
-      z-index: 55;
+      z-index: 57;
       display: flex;
       flex-direction: column;
       padding: 80px 32px 32px;
@@ -796,7 +800,7 @@
           <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brand/15 flex items-center justify-center">
             <svg class="w-7 h-7 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <p class="font-heading text-4xl sm:text-5xl font-bold text-white">$<span class="counter" data-target="0.80" data-decimals="2">0</span></p>
+          <p class="font-heading text-2xl sm:text-3xl font-bold text-white">$<span class="counter" data-target="0.80" data-decimals="2">0</span></p>
           <p class="font-body text-sm font-medium text-gray-400 uppercase tracking-wider mt-1">Per Mile</p>
           <p class="font-body text-xs text-brand-light font-medium">Earn Up To</p>
         </div>
@@ -806,7 +810,7 @@
           <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brand/15 flex items-center justify-center">
             <svg class="w-7 h-7 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
-          <p class="font-heading text-3xl sm:text-4xl font-bold text-white"><span class="counter" data-target="4000" data-decimals="0">0</span></p>
+          <p class="font-heading text-2xl sm:text-3xl font-bold text-white"><span class="counter" data-target="4000" data-decimals="0">0</span></p>
           <p class="font-body text-sm font-medium text-gray-400 uppercase tracking-wider mt-1">Miles Weekly</p>
           <p class="font-body text-xs text-brand-light font-medium">3,000–4,000</p>
         </div>
@@ -816,7 +820,7 @@
           <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brand/15 flex items-center justify-center">
             <svg class="w-7 h-7 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
-          <p class="font-heading text-4xl sm:text-5xl font-bold text-white"><span class="counter" data-target="30" data-decimals="0">0</span>%</p>
+          <p class="font-heading text-2xl sm:text-3xl font-bold text-white"><span class="counter" data-target="30" data-decimals="0">0</span>%</p>
           <p class="font-body text-sm font-medium text-gray-400 uppercase tracking-wider mt-1">Pay Your Way</p>
           <p class="font-body text-xs text-brand-light font-medium">Of Gross</p>
         </div>
@@ -826,7 +830,7 @@
           <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brand/15 flex items-center justify-center">
             <svg class="w-7 h-7 text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           </div>
-          <p class="font-heading text-2xl sm:text-3xl font-bold text-white">Personal</p>
+          <p class="font-heading text-2xl sm:text-2xl font-bold text-white">Personal</p>
           <p class="font-body text-sm font-medium text-gray-400 uppercase tracking-wider mt-1">Dispatcher</p>
           <p class="font-body text-xs text-brand-light font-medium">Dedicated</p>
         </div>
