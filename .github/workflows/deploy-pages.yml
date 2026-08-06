@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Ручной запуск — только когда нужно показать сайт
-  workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
