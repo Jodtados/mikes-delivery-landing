@@ -12,7 +12,7 @@
 - Google Fonts: Oswald (headings) + Heebo (body)
 - Custom CSS animations (scroll reveal, marquee, dropdowns)
 - Playwright installed locally for mobile screenshots (`node _screenshot.js`)
-- Web3Forms API for form submissions (key: `a88f4164-a51f-49b8-96e1-d741aac119e7`)
+- Web3Forms API for form submissions (key: `1e9c640d-e1a1-4c95-a548-4aec5ae893bd`, updated 2026-08-11)
 - **Prettier 3.9.6** installed as devDependency + VS Code extension `esbenp.prettier-vscode`
 - `@prettier/plugin-php` for `send.php`
 - PIL/Pillow available for image processing

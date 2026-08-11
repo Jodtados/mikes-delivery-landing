@@ -35,7 +35,7 @@ const response = await fetch('https://api.web3forms.com/submit', {
 Надо переключить на **FormData** (browser сам выставит multipart content-type с boundary):
 ```js
 const formData = new FormData(form);
-formData.append('access_key', 'a88f4164-a51f-49b8-96e1-d741aac119e7');
+formData.append('access_key', '1e9c640d-e1a1-4c95-a548-4aec5ae893bd');
 // НЕ добавлять headers или Content-Type!
 const response = await fetch('https://api.web3forms.com/submit', {
   method: 'POST',
